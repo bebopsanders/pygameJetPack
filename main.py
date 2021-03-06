@@ -1,6 +1,5 @@
 import pygame as pg
 from settings import *
-
 class Game:
     def __init__(self):
         pg.init()
@@ -17,7 +16,6 @@ class Game:
             self.events()
             self.update()
             self.draw()
-
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -34,7 +32,6 @@ class Game:
         pass
     def game_over(self):
         pass
-
 g = Game()
 g.main_menu()
 while g.running:
