@@ -9,6 +9,7 @@ class Game:
         self.running = True
     def new_game(self):
         self.all_sprites = pg.sprite.Group()
+        self.platforms = pg.sprite.Group()
         self.player = Player()
         self.all_sprites.add(self.player)
         self.run_game()
