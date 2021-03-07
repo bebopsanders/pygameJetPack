@@ -15,14 +15,12 @@ class Player(pg.sprite.Sprite):
         self.acc = vec(0,0)
 
     def update(self):
-        self.acc = vec(0,0.5)
+        self.acc = vec(0,1)
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
             self.acc.x = -0.5
         if keys[pg.K_d]:
             self.acc.x = 0.5
-        if keys[pg.K_s]:
-            self.acc.y = 0.5
         if keys[pg.K_w]:
             self.acc.y = -0.5
         self.acc.x += self.vel.x * -0.07

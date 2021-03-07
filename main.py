@@ -13,6 +13,7 @@ class Game:
         for plat in PLAT_LIST:
             p = Platform(*plat)
             self.all_sprites.add(p)
+            self.platforms.add(p)
         self.player = Player()
         self.all_sprites.add(self.player)
         self.run_game()
@@ -31,6 +32,11 @@ class Game:
                 self.running = False
     def update(self):
         self.all_sprites.update()
+        # check for collisions between player and platforms
+        hits = pg.sprite.spritecollide(self.player,self.platforms,False)
+        if hits:
+            self.player.pos.y = hits[0].rect.top
+            self.player.vel.y = 0
     def draw(self):
         self.screen.fill(WHITE)
         self.all_sprites.draw(self.screen)
