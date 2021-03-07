@@ -22,7 +22,7 @@ class Player(pg.sprite.Sprite):
         if keys[pg.K_d]:
             self.acc.x = 0.5
         if keys[pg.K_w]:
-            self.acc.y = -0.5
+            self.acc.y = -0.17
         self.acc.x += self.vel.x * -0.07
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc

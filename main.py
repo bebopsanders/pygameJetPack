@@ -32,11 +32,12 @@ class Game:
                 self.running = False
     def update(self):
         self.all_sprites.update()
-        # check for collisions between player and platforms
-        hits = pg.sprite.spritecollide(self.player,self.platforms,False)
-        if hits:
-            self.player.pos.y = hits[0].rect.top
-            self.player.vel.y = 0
+        # check for collisions between player and platforms if player.vel.y > 0 (moving down)
+        if self.player.vel.y > 0:
+            hits = pg.sprite.spritecollide(self.player,self.platforms,False)
+            if hits:
+                self.player.pos.y = hits[0].rect.top
+                self.player.vel.y = 0
     def draw(self):
         self.screen.fill(WHITE)
         self.all_sprites.draw(self.screen)
