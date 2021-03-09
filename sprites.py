@@ -15,6 +15,7 @@ class Player(pg.sprite.Sprite):
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.jetFule = 100
+        self.last_update = pg.time.get_ticks()
 
     def jump(self):
         self.rect.x += 1
@@ -24,12 +25,17 @@ class Player(pg.sprite.Sprite):
             self.vel.y = -20
 
     def activateJetPack(self):
+        if self.jetFule <= 0:
+            now = pg.time.get_ticks()
+            if now - self.last_update > 5000:
+                self.last_update = now
+                self.jetFule += 100
         if self.jetFule > 0:
-            self.acc.y = -0.17
-            self.jetFule -= 2
+            self.acc.y = -0.24
+            self.jetFule -= 1
 
     def update(self):
-        self.acc = vec(0,1)
+        self.acc = vec(0,1.5)
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
             self.acc.x = -0.5
@@ -37,9 +43,9 @@ class Player(pg.sprite.Sprite):
             self.acc.x = 0.5
         if keys[pg.K_w]:
             self.activateJetPack()
-        if keys[pg.K_SPACE]:
+        elif keys[pg.K_SPACE]:
             self.jump()
-        self.acc.x += self.vel.x * -PLAYER_FRICTION
+        self.acc += self.vel * -PLAYER_FRICTION
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos

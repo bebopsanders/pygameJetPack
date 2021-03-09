@@ -33,7 +33,7 @@ class Game:
     def update(self):
         self.all_sprites.update()
         # check to see if player is 1/4 from the top of screen
-        if self.player.rect.top <= HEIGHT/4:
+        if self.player.rect.top <= 200:
             self.player.pos.y += abs(self.player.vel.y)
             for plat in self.platforms:
                 plat.rect.y += abs(self.player.vel.y)
@@ -41,7 +41,7 @@ class Game:
                     plat.kill()
         # spawn new platforms to keep same average number
         while len(self.platforms) < 7:
-            width = random.randrange(50,100)
+            width = random.randrange(50,200)
             p = Platform(random.randrange(0,WIDTH-width), random.randrange(-75,-30),width,20)
             self.all_sprites.add(p)
             self.platforms.add(p)
