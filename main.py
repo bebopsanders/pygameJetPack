@@ -31,17 +31,20 @@ class Game:
                 if self.playing:
                     self.playing = False
                 self.running = False
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_SPACE:
+                    self.player.jump()
     def update(self):
         self.all_sprites.update()
         # check to see if player is 1/4 from the top of screen
-        if self.player.rect.top <= 200:
+        if self.player.rect.top <= HEIGHT/4:
             self.player.pos.y += abs(self.player.vel.y)
             for plat in self.platforms:
                 plat.rect.y += abs(self.player.vel.y)
                 if plat.rect.top >= HEIGHT:
                     plat.kill()
         # spawn new platforms to keep same average number
-        while len(self.platforms) < 7:
+        while len(self.platforms) < 10:
             width = random.randrange(50,200)
             p = Platform(random.randrange(0,WIDTH-width), random.randrange(-75,-30),width,20)
             self.all_sprites.add(p)
@@ -69,7 +72,7 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x,y)
         self.screen.blit(text_surface,text_rect)
-        
+
 g = Game()
 g.main_menu()
 while g.running:

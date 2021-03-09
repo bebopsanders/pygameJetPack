@@ -7,45 +7,30 @@ class Player(pg.sprite.Sprite):
     def __init__(self, game):
         pg.sprite.Sprite.__init__(self)
         self.game = game
-        self.image = pg.Surface((30,90))
+        self.image = pg.Surface((30,30))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2,HEIGHT/2)
         self.pos = vec(WIDTH/2,HEIGHT/2)
         self.vel = vec(0,0)
         self.acc = vec(0,0)
-        self.jetFule = 100
-        self.last_update = pg.time.get_ticks()
 
     def jump(self):
         self.rect.x += 1
         hits = pg.sprite.spritecollide(self,self.game.platforms,False)
         self.rect.x -= 1
         if hits:
-            self.vel.y = -20
+            self.vel.y = -17
 
-    def activateJetPack(self):
-        if self.jetFule <= 0:
-            now = pg.time.get_ticks()
-            if now - self.last_update > 5000:
-                self.last_update = now
-                self.jetFule += 100
-        if self.jetFule > 0:
-            self.acc.y = -0.24
-            self.jetFule -= 1
 
     def update(self):
-        self.acc = vec(0,1.5)
+        self.acc = vec(0,1)
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
-            self.acc.x = -0.5
+            self.acc.x = -0.8
         if keys[pg.K_d]:
-            self.acc.x = 0.5
-        if keys[pg.K_w]:
-            self.activateJetPack()
-        elif keys[pg.K_SPACE]:
-            self.jump()
-        self.acc += self.vel * -PLAYER_FRICTION
+            self.acc.x = 0.8
+        self.acc.x += self.vel.x * -PLAYER_FRICTION
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos
