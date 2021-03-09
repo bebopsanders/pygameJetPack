@@ -14,7 +14,7 @@ class Game:
             p = Platform(*plat)
             self.all_sprites.add(p)
             self.platforms.add(p)
-        self.player = Player()
+        self.player = Player(self)
         self.all_sprites.add(self.player)
         self.run_game()
     def run_game(self):
