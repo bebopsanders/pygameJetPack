@@ -7,6 +7,7 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH,HEIGHT))
         self.clock = pg.time.Clock()
         self.running = True
+        self.font_name = pg.font.match_font(FONT_NAME)
     def new_game(self):
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
@@ -56,10 +57,19 @@ class Game:
         self.screen.fill(WHITE)
         self.all_sprites.draw(self.screen)
         pg.display.flip()
+
     def main_menu(self):
         pass
     def game_over(self):
         pass
+
+    def draw_text(self, text, size, color, x, y):
+        font = pg.font.Font(self.font_name, size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x,y)
+        self.screen.blit(text_surface,text_rect)
+        
 g = Game()
 g.main_menu()
 while g.running:
